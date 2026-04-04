@@ -1,0 +1,54 @@
+# Dependencies for File Converter
+# Install with the following command: pip install -r requirements.txt or
+# py -(your_python_version) -m pip install -r requirements.txt
+
+# GUI Framework
+PySide6==6.10.0
+
+#PDF Handling Libraries
+PyMuPDF==1.26.6
+pypdf==6.9.1
+PyPDF2==3.0.1
+pdf2docx==0.5.8
+pdfkit==1.0.0
+reportlab==4.4.4
+
+# Office docs Libraries
+python-docx==1.2.0
+docx2pdf==0.1.8
+python-pptx==1.0.2
+openpyxl==3.1.5
+
+#Images
+Pillow==12.0.0
+pillow-heifPillow==1.3.0
+
+# E-books
+ebooklib==0.20
+
+# Conversion utilities
+pypandoc==1.17
+weasyprint==68.1
+lxml==6.0.2
+numpy==2.2.6
+
+# Video/Audio
+ffmpeg-python==0.2.0
+playsound3==3.3.1
+
+# Archives
+pyzipper==0.3.6
+
+# Config/Encryption
+cryptography==46.0.3
+
+# Charts/Visualization
+matplotlib==3.10.7
+
+# Exe Packager
+pyinstaller==6.16.0
+
+# Windows Only
+winotify==1.1.0
+comtypes==1.4.13
+pywin32==311
