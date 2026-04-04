@@ -762,5 +762,5 @@ This project uses a **dual licensing model**:
 ---
 
 <div align="center">
-<sub>Built by **Hyacinthe** — <em>because file conversion should actually feel good.</em></sub>
+<sub>Built by Hyacinthe — <em>because file conversion should actually feel good.</em></sub>
 </div>
