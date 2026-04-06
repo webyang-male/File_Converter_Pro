@@ -301,7 +301,7 @@ All settings, history, and achievements are stored in the same folder as the exe
 
 ### Optional Tools — Unlock Better Quality
 
-File Converter Pro works **out of the box with zero dependencies**. Every conversion has a built-in fallback engine that runs on a clean machine. However, if you install any of the tools below, the app will detect them automatically and use them to produce higher-quality output — no configuration needed.
+File Converter Pro works **out of the box with zero dependencies**. Every conversion has a built-in fallback engine that runs on a clean machine. However, if you install any of the tools below, the app will detect them automatically and use them to produce higher-quality output. No configuration needed.
 
 | Tool | What it unlocks | Where to get it |
 |------|----------------|-----------------|
@@ -416,7 +416,7 @@ These are installed automatically via `requirements.txt`:
 
 ### Optional External Binaries
 
-Some conversion pipelines rely on external binaries that must be installed separately. Currently, the only truly required one is FFmpeg — the others are optional. The app auto-detects them at runtime — no path configuration needed.
+Some conversion pipelines rely on external binaries that must be installed separately. Currently, the only truly required one is FFmpeg, the others are optional. The app auto-detects them at runtime. No path configuration needed.
 
 | Binary | Used for | Install |
 |--------|---------|---------|
@@ -733,8 +733,8 @@ If you use or adapt this project, please include:
 
 > [!IMPORTANT]
 > **Dual Licensing:** This project is available under the GPLv3 for open-source use.
-> For integration into proprietary or commercial products, a separate commercial license
-> is available — contact the author for explicit permission.
+> For integration into proprietary or commercial products without sharing your code, a separate commercial license
+> is available. Read it down in LICENSE section.
 
 ---
 
@@ -751,11 +751,11 @@ To ensure transparency and privacy, please review our legal documents:
 
 This project uses a **dual licensing model**:
 
-- **Open-Source (GPLv3):** Free to use, modify, and distribute under the terms of the GNU General Public License v3. Full license terms available here:
+- **Open-Source (GPLv3):** Free to use, modify, and distribute under the terms of the GNU General Public License v3. Full license terms is also available here:
 
   * [`LICENSE.txt`](LICENSE/LICENSE.txt)
 
-- **Commercial License:** For integration into proprietary or closed-source products, a separate commercial license is required. Please contact the author for explicit permission: [hyacintheatho91@gmail.com](mailto:hyacintheatho91@gmail.com)
+- **Commercial License:** For integration into proprietary or closed-source products, a separate commercial license is required. Please contact the author for explicit permission: read more here: [Commercial license](COMMERCIAL_LICENSE.md)
 
 © 2026 Prime Enterprises (Hyacinthe). All rights reserved.
 
