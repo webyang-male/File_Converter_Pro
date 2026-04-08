@@ -862,10 +862,25 @@ class TermsAndPrivacyDialog(QDialog):
             content = new_style + "\n" + content
         return content
 
+    def _get_legal_lang_code(self, prefix: str) -> str:
+        """
+        Returns the best available language code for a given legal file prefix.
+        prefix is either 'terms_conditions' or 'privacy_policy'.
+        Priority: exact match (e.g. 'it') -> 'en' fallback -> 'fr' fallback
+        Each file type is checked independently, so having terms_conditions_it.html
+        does not imply privacy_policy_it.html exists.
+        """
+        legal_path = self.get_legal_files_path()
+        if os.path.exists(os.path.join(legal_path, f"{prefix}_{self.language}.html")):
+            return self.language
+        if os.path.exists(os.path.join(legal_path, f"{prefix}_en.html")):
+            return "en"
+        return "fr"
+
     def get_terms_content(self):
         """Load terms of use from an HTML file"""
         legal_path = self.get_legal_files_path()
-        file_path = os.path.join(legal_path, f"terms_conditions_{self.language}.html")
+        file_path = os.path.join(legal_path, f"terms_conditions_{self._get_legal_lang_code('terms_conditions')}.html")
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -891,7 +906,7 @@ class TermsAndPrivacyDialog(QDialog):
     def get_privacy_content(self):
         """Load privacy policy from an HTML file"""
         legal_path = self.get_legal_files_path()
-        file_path = os.path.join(legal_path, f"privacy_policy_{self.language}.html")
+        file_path = os.path.join(legal_path, f"privacy_policy_{self._get_legal_lang_code('privacy_policy')}.html")
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
