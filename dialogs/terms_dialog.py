@@ -117,7 +117,6 @@ class TermsAndPrivacyDialog(QDialog):
         if os.path.exists(path):
             return path
 
-        # Create dir and default HTML files
         os.makedirs(legal_dir, exist_ok=True)
         self.create_default_legal_files(legal_dir)
         return legal_dir
