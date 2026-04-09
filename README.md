@@ -646,14 +646,14 @@ There are plenty of ways to convert files. Here's where File Converter Pro fits 
 See [ROADMAP.md](ROADMAP.md) for the full list of planned features and future directions.
 
 **Highlights:**
-- 👥 User profiles — multiple independent profiles on the same machine
-- 🔔 Extended system notifications — covering long-running batch conversions
-- 📂 Watch folder — auto-convert anything dropped into a monitored folder
-- ⏱️ Batch scheduling — run conversions at a set time or on a recurring schedule
-- 📊 Dashboard upgrades — period comparison, achievement timeline, PDF export
-- 🧩 Plugin system — add custom converters via external Python scripts
-- 🌐 Local REST API — integrate conversions into scripts and automation workflows
-- ✅ Automated test suite — regression coverage for all conversion engines
+- User profiles — multiple independent profiles on the same machine
+- Extended system notifications — covering long-running batch conversions
+- Watch folder — auto-convert anything dropped into a monitored folder
+- Batch scheduling — run conversions at a set time or on a recurring schedule
+- Dashboard upgrades — period comparison, achievement timeline, PDF export
+- Plugin system — add custom converters via external Python scripts
+- Local REST API — integrate conversions into scripts and automation workflows
+- Automated test suite — regression coverage for all conversion engines
 
 ---
 
