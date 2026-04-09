@@ -24,7 +24,7 @@ Support for multiple independent profiles on the same machine, each with their o
 - Conversion history
 
 ### Disable achievements
-Give the possibility to user to disable achievements if they prefer a more minimal converter
+Give the possibility to users to disable achievements if they prefer a more minimal converter
 
 ### System Notifications (Extended)
 Windows toast notifications are already supported for certain events. The next step is extending them to **long-running conversions** — so users can switch to another app while a heavy batch runs and still get notified the moment it's done.
@@ -40,30 +40,30 @@ Monitor a folder and automatically convert any file dropped into it, using a pre
 A visible queue panel where users can reorder pending conversions, pause individual items, or cancel specific tasks without killing the whole batch. Useful when converting dozens of files at once and something more urgent comes up.
 
 ### Undo Last Conversion
-A lightweight undo system that keeps track of the last N output files and allows deleting them with one click — so a mistaken batch conversion doesn't leave the output folder cluttered.
+A lightweight undo system that keeps track of the last N output files and allows deleting them with one click, so a mistaken batch conversion doesn't leave the output folder cluttered.
 
 ### More Languages
-The `.lang` system is already in place. Adding community-contributed translations (German, Spanish, Arabic, etc.) requires no code changes — just more `.lang` files. Native speakers are especially welcome.
+The `.lang` system is already in place. Adding community-contributed translations (German, Spanish, Arabic, etc.) requires no code changes; just more `.lang` files. Native speakers are especially welcome.
 
 ---
 
 ## Dashboard & Stats
 
 ### Achievement Progress Graph
-Visualize your achievement unlocks over time — see exactly when each one was earned and track your overall progression curve.
+Visualize your achievement unlocks over time, see exactly when each one was earned and track your overall progression curve.
 
 ### PDF Dashboard Export
-Print or export a full stats report as a PDF — useful for a personal recap or just for fun.
+Print or export a full stats report as a PDF, useful for a personal recap or just for fun.
 
 ### Period Comparison
 Compare your activity between two time ranges directly in the dashboard.
-Example: *"This week vs. last week"* — conversion count, file volume, formats used.
+Example: *"This week vs. last week"* - conversion count, file volume, formats used.
 
 ### Format Popularity Heatmap
 A calendar-style heatmap (similar to GitHub's contribution graph) showing which days you converted the most files. A nice visual complement to the existing bar charts.
 
 ### Achievement Rarity Labels
-Contextual labels on achievements showing how far along most users get — e.g. *"Most users reach this around 50 conversions"*. Encourages continued use without requiring any server or leaderboard.
+Contextual labels on achievements showing how far along most users get. e.g. *"Most users reach this around 50 conversions"*. Encourages continued use without requiring any server or leaderboard.
 
 ---
 
@@ -138,7 +138,7 @@ The `base` field tells the app which built-in stylesheet to use as a fallback fo
 A built-in **Theme Editor** in Settings would let users tweak colors visually with a live preview, then export the result as a `.theme` file they can share.
 
 ### More Special Events
-The date-aware event overlay system already supports New Year and birthdays. Extending it to cover more calendar events requires only new event definitions — the rendering infrastructure is already in place.
+The date-aware event overlay system already supports New Year and birthdays. Extending it to cover more calendar events requires only new event definitions.
 
 ### Pinned Formats
 Let users pin their most-used input/output format combinations to the top of the format selector so they don't have to scroll every time.
