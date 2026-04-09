@@ -1,5 +1,4 @@
 # -*- mode: python ; coding: utf-8 -*-
-# PyInstaller spec — Quick Check
 # pyright: reportUndefinedVariable=false
 
 block_cipher = None
@@ -14,22 +13,17 @@ a = Analysis(
     hooksconfig={},
     runtime_hooks=[],
     excludes=[
-        # All GUIs (keep tkinter)
         'PyQt5', 'PyQt6', 'PySide2', 'PySide6',
 
-        # Science / ML
         'torch', 'torchvision', 'tensorflow',
         'numpy', 'pandas', 'scipy', 'sklearn',
         'matplotlib', 'PIL', 'cv2', 'easyocr',
 
-        # Networking / web
         'requests', 'urllib3', 'http', 'email',
         'ftplib', 'imaplib', 'smtplib', 'poplib',
 
-        # Crypto
         'cryptography', 'ssl', '_ssl',
 
-        # Stdlib modules not used
         'xml', 'xmlrpc', 'pydoc', 'doctest',
         'unittest', 'distutils', 'setuptools',
         'multiprocessing', 'concurrent',

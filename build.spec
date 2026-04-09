@@ -7,27 +7,23 @@ import os
 def collect_data_files():
     """Collects all necessary files for PyInstaller"""
     datas = [
-        # === Icons and main assets ===
         ('icon.ico', '.'),
         ('icon.png', '.'),
-        
-        # === Resource folders ===
+
         ('Assets', 'Assets'),
         ('SFX', 'SFX'),
         ('icons', 'icons'),
         ('fonts', 'fonts'),
         ('legal', 'legal'),
     ]
-    
-    # Filter out files that don't exist (avoid warnings)
+
     filtered_datas = []
     for src, dst in datas:
         if os.path.exists(src):
             filtered_datas.append((src, dst))
         else:
             print(f"⚠ File not found (skipped): {src}")
-    
-    # === python-docx data files (templates, styles — REQUIRED at runtime) ===
+
     try:
         import docx
         docx_dir = os.path.dirname(docx.__file__)
@@ -37,7 +33,6 @@ def collect_data_files():
     except ImportError:
         print("⚠ python-docx not installed")
 
-    # === python-pptx templates (required at runtime) ===
     try:
         import pptx
         pptx_templates = os.path.join(os.path.dirname(pptx.__file__), 'templates')
@@ -47,7 +42,6 @@ def collect_data_files():
     except ImportError:
         print("⚠ python-pptx not installed")
 
-    # === comtypes generated COM cache ===
     try:
         import comtypes
         gen_dir = os.path.join(os.path.dirname(comtypes.__file__), 'gen')
@@ -57,7 +51,6 @@ def collect_data_files():
     except ImportError:
         print("⚠ comtypes not installed")
 
-    # === pdf2docx data files ===
     try:
         from PyInstaller.utils.hooks import collect_all
         pdf2docx_datas, pdf2docx_bins, pdf2docx_hidden = collect_all("pdf2docx")
@@ -66,7 +59,6 @@ def collect_data_files():
     except Exception as e:
         print(f"⚠ pdf2docx collect_all failed: {e}")
 
-    # === numpy data files — native .pyd files often missed by PyInstaller ===
     try:
         from PyInstaller.utils.hooks import collect_all
         np_datas, _, _ = collect_all("numpy")
@@ -75,7 +67,6 @@ def collect_data_files():
     except Exception as e:
         print(f"⚠ numpy collect_all failed: {e}")
 
-    # === cv2 (opencv-headless) — collect_all causes recursion, manual collection instead ===
     try:
         from PyInstaller.utils.hooks import collect_dynamic_libs, collect_data_files as _cdf
         cv2_datas = _cdf("cv2")
@@ -84,7 +75,6 @@ def collect_data_files():
     except Exception as e:
         print(f"⚠ cv2 collect failed: {e}")
 
-    # === fontTools data files — required by pdf2docx ===
     try:
         from PyInstaller.utils.hooks import collect_all
         ft_datas, _, _ = collect_all("fontTools")
@@ -96,21 +86,18 @@ def collect_data_files():
     return filtered_datas
 
 
-# Retrieve hiddenimports and binaries for pdf2docx via collect_all
 try:
     from PyInstaller.utils.hooks import collect_all as _ca
     _, _pdf2docx_bins, _pdf2docx_hidden = _ca("pdf2docx")
 except Exception:
     _pdf2docx_bins, _pdf2docx_hidden = [], []
 
-# numpy — native .pyd files are often missed by PyInstaller without collect_all
 try:
     from PyInstaller.utils.hooks import collect_all as _ca
     _np_datas, _np_bins, _np_hidden = _ca("numpy")
 except Exception:
     _np_datas, _np_bins, _np_hidden = [], [], []
 
-# cv2 (opencv-headless) — collect_all causes recursion, collect manually instead
 try:
     from PyInstaller.utils.hooks import collect_dynamic_libs, collect_data_files as _cdf
     _cv2_bins = collect_dynamic_libs("cv2")
@@ -119,7 +106,6 @@ try:
 except Exception:
     _cv2_datas, _cv2_bins, _cv2_hidden = [], [], []
 
-# fontTools — runtime dependency of pdf2docx
 try:
     from PyInstaller.utils.hooks import collect_all as _ca
     _ft_datas, _ft_bins, _ft_hidden = _ca("fontTools")
@@ -132,17 +118,14 @@ a = Analysis(
     binaries=[] + _pdf2docx_bins + _cv2_bins + _ft_bins + _np_bins,
     datas=collect_data_files(),
     hiddenimports=[
-        # Cryptography
         'cryptography.hazmat.primitives.kdf.pbkdf2',
         'cryptography.hazmat.primitives.hashes',
         'cryptography.hazmat.backends',
 
-        # Conversion libraries
-        # pdf2docx — full submodule list (PyInstaller misses most of these)
-        *_pdf2docx_hidden,  # collect_all pdf2docx (replaces the static list below — kept as fallback)
-        *_cv2_hidden,       # collect_all cv2 (opencv-headless, dep of pdf2docx)
-        *_ft_hidden,        # collect_all fontTools (dep of pdf2docx)
-        *_np_hidden,        # collect_all numpy (native .pyd files are often missed)
+        *_pdf2docx_hidden,
+        *_cv2_hidden,
+        *_ft_hidden,
+        *_np_hidden,
         'pdf2docx', 'pdf2docx.main', 'pdf2docx.converter',
         'pdf2docx.common', 'pdf2docx.common.share', 'pdf2docx.common.algorithm',
         'pdf2docx.common.constants', 'pdf2docx.common.Collection',
@@ -185,30 +168,22 @@ a = Analysis(
         'comtypes.persistence', 'comtypes.automation',
         'pythoncom', 'pywintypes',
 
-        # Archives
+        'pyzipper',
 
-        'pyzipper',  # AES-256 ZIP encryption
-
-        # System (third-party only — stdlib handled automatically)
-
-        # PySide6 modules
         'PySide6.QtMultimedia', 'PySide6.QtMultimediaWidgets',
         'PySide6.QtNetwork', 'PySide6.QtCore', 'PySide6.QtGui',
         'PySide6.QtWidgets', 'PySide6.QtPrintSupport',
 
-        # PDF/Image processing
         'fitz', 'pymupdf', 'pypdf',
 
-        # Matplotlib
         'matplotlib',
         'matplotlib.pyplot',
-        'matplotlib.backends.backend_qt5agg',  # backend used by dashboard.py
+        'matplotlib.backends.backend_qt5agg',
         'matplotlib.figure',
         'matplotlib.patches',
         'cycler', 'kiwisolver', 'dateutil', 'dateutil.parser',
         'dateutil.relativedelta', 'pytz', 'six', 'pyparsing',
 
-        # Data processing
         'numpy', 'numpy.core', 'numpy.core.multiarray',
         'numpy.core._multiarray_umath', 'numpy.core._multiarray_tests',
         'numpy.core.numeric', 'numpy.core.fromnumeric',
@@ -221,7 +196,6 @@ a = Analysis(
         'numpy.lib', 'numpy.lib.stride_tricks', 'numpy.lib.mixins',
         'numpy.lib.index_tricks', 'numpy.lib.nanfunctions',
 
-        # Advanced conversions dependencies
         'openpyxl', 'openpyxl.styles', 'openpyxl.utils',
         'pptx', 'pptx.util', 'pptx.enum.shapes', 'pptx.enum.chart',
         'reportlab.lib', 'reportlab.lib.pagesizes',
@@ -230,7 +204,6 @@ a = Analysis(
         'reportlab.platypus', 'reportlab.platypus.tables',
         'reportlab.platypus.flowables', 'reportlab.pdfbase',
         'reportlab.pdfbase.pdfmetrics', 'reportlab.pdfbase.ttfonts',
-        # fontTools — required by pdf2docx at runtime (font metrics parsing)
         'fontTools', 'fontTools.ttLib', 'fontTools.ttLib.ttFont',
         'fontTools.ttLib.tables', 'fontTools.ttLib.tables._n_a_m_e',
         'fontTools.ttLib.tables.otTables', 'fontTools.ttLib.tables.DefaultTable',
@@ -241,16 +214,12 @@ a = Analysis(
         'fontTools.cffLib', 'fontTools.varLib', 'fontTools.feaLib',
         'fontTools.designspaceLib', 'fontTools.colorLib',
 
-        # opencv-python-headless — required by pdf2docx (image processing)
         'cv2',
-
-        # fire — required by pdf2docx CLI layer (imported at module level)
 
         'lxml', 'lxml.etree', 'lxml._elementpath', 'lxml.html', 'ebooklib',
         'pillow_heif',
         'weasyprint',
 
-        # Internal modules
         'config', 'database', 'translations', 'widgets',
         'dialogs', 'dialogs.dialogs', 'dialogs.terms_dialog', 'dialogs.word_to_pdf_dialog',
         'dashboard', 'history',
@@ -262,7 +231,6 @@ a = Analysis(
         'advanced_conversions',
         'donate',
 
-        # Achievements package
         'achievements',
         'achievements.achievements_system',
         'achievements.achievements_ui',
@@ -273,24 +241,17 @@ a = Analysis(
     ],
     hookspath=[],
     hooksconfig={
-        # Bundle qt5agg backend — used by dashboard.py
         'matplotlib': {'backends': 'qt5agg'},
     },
     runtime_hooks=[],
     excludes=[
-        # Other Qt bindings
         'PyQt5', 'PyQt6', 'PySide2', 'tkinter',
-        # Testing / documentation
         'pytest', 'unittest', 'nose', 'sphinx', 'docutils',
-        # Torch orphans (torch/easyocr removed)
         'torch', 'torchvision', 'torchaudio',
         'scipy',
-        # Jupyter / IPython stack (never used)
         'IPython', 'jedi', 'parso', 'prompt_toolkit',
         'zmq', 'tornado', 'ipykernel', 'ipython_genutils',
-        # Data science (not used)
         'pandas',
-        # Unused Qt modules
         'PySide6.QtBluetooth', 'PySide6.QtDBus',
         'PySide6.QtLocation', 'PySide6.QtNfc',
         'PySide6.QtPositioning', 'PySide6.QtRemoteObjects',
@@ -314,33 +275,29 @@ exe = EXE(
     pyz,
     a.scripts,
     [],
-    exclude_binaries=True,  # mandatory in onedir mode
+    exclude_binaries=True,
     name='File Converter Pro',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[
-        # Qt/PySide6 (stability)
         'Qt6Multimedia.dll', 'Qt6MultimediaWidgets.dll',
         'Qt6Qml.dll', 'Qt6Quick.dll', 'Qt6DBus.dll',
 
-        # NumPy / OpenBLAS (corruption guaranteed if compressed)
         'libopenblas*.dll', 'libblas*.dll',
         '_multiarray_umath*.pyd', '_numpy_core*.pyd', 'multiarray*.pyd',
         'numpy.core*.dll',
 
-        # Python runtime
         'python3*.dll', 'python*.dll',
         'vcruntime*.dll', 'msvcp*.dll', 'msvcr*.dll',
         'api-ms-win*.dll', 'ucrtbase.dll',
 
-        # PyMuPDF / mupdf (native DLL — guaranteed corruption if compressed)
         '_mupdf*.pyd', 'mupdf*.dll', '_fitz*.pyd',
 
     ],
     runtime_tmpdir=None,
-    console=False,  # set to True for debug builds, False for production
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     icon='icon.ico',
@@ -348,7 +305,6 @@ exe = EXE(
     manifest='manifest.xml'
 )
 
-# COLLECT mandatory in onedir mode
 coll = COLLECT(
     exe,
     a.binaries,
@@ -357,7 +313,6 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[
-        # Same as EXE
         'Qt6Multimedia.dll', 'Qt6MultimediaWidgets.dll',
         'Qt6PrintSupport.dll',
         'Qt6Qml.dll', 'Qt6Quick.dll', 'Qt6DBus.dll',
@@ -368,7 +323,6 @@ coll = COLLECT(
         'vcruntime*.dll', 'msvcp*.dll', 'msvcr*.dll',
         'api-ms-win*.dll', 'ucrtbase.dll',
 
-        # PyMuPDF / mupdf (native DLL — guaranteed corruption if compressed)
         '_mupdf*.pyd', 'mupdf*.dll', '_fitz*.pyd',
     ],
     name='File Converter Pro',
