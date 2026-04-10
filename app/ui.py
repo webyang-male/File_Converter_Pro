@@ -1605,12 +1605,14 @@ class AppUIMixin(AppLogicMixin):
 
     def create_left_panel(self, parent_layout):
         left_panel = QGroupBox(self.translate_text("Gestion des Fichiers"))
+        left_panel.setProperty("i18n_key", "Gestion des Fichiers")
         left_panel.setObjectName("FilePanel")
         left_layout = QVBoxLayout(left_panel)
         left_layout.setContentsMargins(10, 18, 10, 10)
         left_layout.setSpacing(10)
 
         hint_lbl = QLabel(self.translate_text("Fichiers sélectionnés (glissez-déposez depuis l'explorateur):"))
+        hint_lbl.setProperty("i18n_key", "Fichiers sélectionnés (glissez-déposez depuis l'explorateur):")
         hint_lbl.setObjectName("HintLabel")
         hint_lbl.setAlignment(Qt.AlignCenter)
         left_layout.addWidget(hint_lbl)
@@ -1638,10 +1640,14 @@ class AppUIMixin(AppLogicMixin):
             b.setObjectName(name)
             return b
 
-        self.add_files_btn   = _file_btn("📁 " + self.translate_text("Ajouter Fichiers"),  "BtnFileAdd")
-        self.add_folder_btn  = _file_btn("📂 " + self.translate_text("Ajouter Dossier"),   "BtnFileFolder")
-        self.remove_file_btn = _file_btn("🗑 "  + self.translate_text("Supprimer"),         "BtnFileDel")
-        self.clear_all_btn   = _file_btn("🧹 " + self.translate_text("Tout Effacer"),       "BtnFileClear")
+        self.add_files_btn   = _file_btn("📁 " + self.translate_text("Ajouter Fichiers"), "BtnFileAdd")
+        self.add_folder_btn  = _file_btn("📂 " + self.translate_text("Ajouter Dossier"), "BtnFileFolder")
+        self.remove_file_btn = _file_btn("🗑 "  + self.translate_text("Supprimer"), "BtnFileDel")
+        self.clear_all_btn   = _file_btn("🧹 " + self.translate_text("Tout Effacer"), "BtnFileClear")
+        self.add_files_btn.setProperty("i18n_key", "Ajouter Fichiers")
+        self.add_folder_btn.setProperty("i18n_key", "Ajouter Dossier")
+        self.remove_file_btn.setProperty("i18n_key", "Supprimer")
+        self.clear_all_btn.setProperty("i18n_key", "Tout Effacer")
 
         btn_row = QHBoxLayout()
         btn_row.setSpacing(8)
@@ -1673,9 +1679,11 @@ class AppUIMixin(AppLogicMixin):
             return b
 
         conv_card, conv_lay = _card(self.translate_text("Conversion de Fichiers"))
+        conv_card.setProperty("i18n_key", "Conversion de Fichiers")
 
         ocr_row = QHBoxLayout()
         self.ocr_checkbox = QCheckBox(self.translate_text("Utiliser OCR pour les images dans les PDF"))
+        self.ocr_checkbox.setProperty("i18n_key", "Utiliser OCR pour les images dans les PDF")
         self.ocr_checkbox.setChecked(False)
         self.ocr_checkbox.setEnabled(False)
         self.ocr_checkbox.setToolTip(self.translate_text("Cette fonctionnalité est en cours de développement"))
@@ -1686,14 +1694,18 @@ class AppUIMixin(AppLogicMixin):
 
         conv_grid = QHBoxLayout()
         conv_grid.setSpacing(7)
-        self.pdf_to_word_btn   = _btn("📄→📝 " + self.translate_text("PDF → Word"),   "BtnBlue")
-        self.word_to_pdf_btn   = _btn("📝→📄 " + self.translate_text("Word → PDF"),   "BtnBlue")
+        self.pdf_to_word_btn   = _btn("📄→📝 " + self.translate_text("PDF → Word"), "BtnBlue")
+        self.word_to_pdf_btn   = _btn("📝→📄 " + self.translate_text("Word → PDF"), "BtnBlue")
         self.image_to_pdf_btn  = _btn("🖼→📄 "  + self.translate_text("Images → PDF"), "BtnBlue")
+        self.pdf_to_word_btn.setProperty("i18n_key", "PDF → Word")
+        self.word_to_pdf_btn.setProperty("i18n_key", "Word → PDF")
+        self.image_to_pdf_btn.setProperty("i18n_key", "Images → PDF")
         for b in [self.pdf_to_word_btn, self.word_to_pdf_btn, self.image_to_pdf_btn]:
             conv_grid.addWidget(b)
         conv_lay.addLayout(conv_grid)
 
         self.more_conversions_btn = QPushButton("✦  " + self.translate_text("Plus de conversions"))
+        self.more_conversions_btn.setProperty("i18n_key", "Plus de conversions")
         self.more_conversions_btn.setMinimumHeight(32)
         self.more_conversions_btn.setObjectName("BtnMoreConv")
         self.more_conversions_btn.clicked.connect(self.show_advanced_conversions)
@@ -1701,10 +1713,13 @@ class AppUIMixin(AppLogicMixin):
         right_layout.addWidget(conv_card)
 
         merge_card, merge_lay = _card(self.translate_text("Fusion de Fichiers"))
+        merge_card.setProperty("i18n_key", "Fusion de Fichiers")
         merge_row = QHBoxLayout()
         merge_row.setSpacing(7)
-        self.merge_pdf_btn  = _btn("🔗 " + self.translate_text("Fusionner PDF"),  "BtnTeal")
+        self.merge_pdf_btn  = _btn("🔗 " + self.translate_text("Fusionner PDF"), "BtnTeal")
         self.merge_word_btn = _btn("🔗 " + self.translate_text("Fusionner Word"), "BtnTeal")
+        self.merge_pdf_btn.setProperty("i18n_key", "Fusionner PDF")
+        self.merge_word_btn.setProperty("i18n_key", "Fusionner Word")
         merge_row.addWidget(self.merge_pdf_btn)
         merge_row.addWidget(self.merge_word_btn)
         merge_lay.addLayout(merge_row)
@@ -1713,19 +1728,25 @@ class AppUIMixin(AppLogicMixin):
         adv_card, adv_lay = _card(self.translate_text("Fonctionnalités Avancées"))
         adv_row = QHBoxLayout()
         adv_row.setSpacing(7)
-        self.split_pdf_btn      = _btn("✂️ " + self.translate_text("Diviser PDF"),         "BtnOrange")
-        self.protect_pdf_btn    = _btn("🔒 " + self.translate_text("Protéger PDF"),        "BtnOrange")
+        self.split_pdf_btn      = _btn("✂️ " + self.translate_text("Diviser PDF"), "BtnOrange")
+        self.protect_pdf_btn    = _btn("🔒 " + self.translate_text("Protéger PDF"), "BtnOrange")
         self.compress_files_btn = _btn("🗜 "  + self.translate_text("Compresser Fichiers"), "BtnOrange")
+        self.split_pdf_btn.setProperty("i18n_key", "Diviser PDF")
+        self.protect_pdf_btn.setProperty("i18n_key", "Protéger PDF")
+        self.compress_files_btn.setProperty("i18n_key", "Compresser Fichiers")
         for b in [self.split_pdf_btn, self.protect_pdf_btn, self.compress_files_btn]:
             adv_row.addWidget(b)
         adv_lay.addLayout(adv_row)
         right_layout.addWidget(adv_card)
 
         batch_card, batch_lay = _card(self.translate_text("Opérations par Lots"))
+        batch_card.setProperty("i18n_key", "Opérations par lots")
         batch_row = QHBoxLayout()
         batch_row.setSpacing(7)
         self.batch_convert_btn = _btn("🔄 " + self.translate_text("Conversion par Lot"), "BtnViolet")
-        self.batch_rename_btn  = _btn("📝 " + self.translate_text("Renommer par Lot"),   "BtnViolet")
+        self.batch_rename_btn  = _btn("📝 " + self.translate_text("Renommer par Lot"), "BtnViolet")
+        self.batch_convert_btn.setProperty("i18n_key", "Conversion par Lot")
+        self.batch_rename_btn.setProperty("i18n_key", "Renommer par Lot")
         batch_row.addWidget(self.batch_convert_btn)
         batch_row.addWidget(self.batch_rename_btn)
         batch_lay.addLayout(batch_row)
@@ -1733,6 +1754,7 @@ class AppUIMixin(AppLogicMixin):
         right_layout.addStretch()
 
         self.settings_btn = QPushButton("⚙  " + self.translate_text("Paramètres"))
+        self.settings_btn.setProperty("i18n_key", "Paramètres")
         self.settings_btn.setMinimumHeight(38)
         self.settings_btn.setObjectName("BtnSettings")
         right_layout.addWidget(self.settings_btn)
@@ -3040,36 +3062,32 @@ class AppUIMixin(AppLogicMixin):
         self.language_action.setText(self._get_language_label(new_language))
 
     def update_texts(self):
-        if self.current_language == "fr":
-            self.setWindowTitle("File Converter Pro - Professional File Converter")
-        else:
-            self.setWindowTitle("File Converter Pro - Professional File Converter")
-        
+        self.setWindowTitle("File Converter Pro - Professional File Converter")
         self.update_file_counter()
         self.status_bar.showMessage(self.translate_text("Ready - Select files to start"))
-        
+
         for widget in self.findChildren(QGroupBox):
-            current_text = widget.title()
-            translated_text = self.translate_text(current_text)
-            if current_text != translated_text:
-                widget.setTitle(translated_text)
-        
+            key = widget.property("i18n_key")
+            if key:
+                widget.setTitle(self.translate_text(key).upper())
+
         for widget in self.findChildren(QPushButton):
-            current_text = widget.text()
-            if " " in current_text and not current_text.startswith("🆕") and not current_text.startswith("📂") and not current_text.startswith("💾"):
-                parts = current_text.split(" ", 1)
-                if len(parts) == 2:
-                    emoji, text = parts
-                    translated_text = emoji + " " + self.translate_text(text)
-                    if current_text != translated_text:
-                        widget.setText(translated_text)
-        
+            key = widget.property("i18n_key")
+            if key:
+                parts = widget.text().split(" ", 1)
+                prefix = parts[0] + " " if len(parts) == 2 else ""
+                widget.setText(prefix + self.translate_text(key))
+
         for widget in self.findChildren(QLabel):
-            current_text = widget.text()
-            translated_text = self.translate_text(current_text)
-            if current_text != translated_text:
-                widget.setText(translated_text)
-        
+            key = widget.property("i18n_key")
+            if key:
+                widget.setText(self.translate_text(key))
+
+        for widget in self.findChildren(QCheckBox):
+            key = widget.property("i18n_key")
+            if key:
+                widget.setText(self.translate_text(key))
+
         self.theme_action.setText(("☀️ " if self.dark_mode else "🌙 ") + self.translate_text("Mode Clair" if self.dark_mode else "Mode Sombre"))
         self.new_action.setText("🆕 " + self.translate_text("Nouveau Projet"))
         self.open_action.setText("📂 " + self.translate_text("Ouvrir Projet"))
