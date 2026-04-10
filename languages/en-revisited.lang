@@ -1059,6 +1059,8 @@
     "Utiliser 5 types de templates différents en une seule session": "Use 5 different template types in a single session",
     "Exporter ses templates au moins une fois": "Export your templates at least once",
     "Importer un fichier de templates au moins une fois": "Import a template file at least once",
+    "Importer": "Import",
+    "Exporter": "Export",
     "Modifier 10 templates existants via Edit": "Edit 10 existing templates via Edit",
     "Mode d'optimisation": "Optimization mode",
     "Compression  —  réduit la taille du fichier": "Compression  —  reduces file size",
