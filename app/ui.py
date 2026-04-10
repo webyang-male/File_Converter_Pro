@@ -3064,7 +3064,7 @@ class AppUIMixin(AppLogicMixin):
     def update_texts(self):
         self.setWindowTitle("File Converter Pro - Professional File Converter")
         self.update_file_counter()
-        self.status_bar.showMessage(self.translate_text("Ready - Select files to start"))
+        self.status_bar.showMessage(self.translate_text("Prêt - Sélectionnez des fichiers pour commencer"))
 
         for widget in self.findChildren(QGroupBox):
             key = widget.property("i18n_key")
