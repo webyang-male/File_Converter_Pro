@@ -22,66 +22,66 @@ def collect_data_files():
         if os.path.exists(src):
             filtered_datas.append((src, dst))
         else:
-            print(f"⚠ File not found (skipped): {src}")
+            print(f"File not found (skipped): {src}")
 
     try:
         import docx
         docx_dir = os.path.dirname(docx.__file__)
         if os.path.exists(docx_dir):
             filtered_datas.append((docx_dir, 'docx'))
-            print("✓ python-docx data files added")
+            print("python-docx data files added")
     except ImportError:
-        print("⚠ python-docx not installed")
+        print("python-docx not installed")
 
     try:
         import pptx
         pptx_templates = os.path.join(os.path.dirname(pptx.__file__), 'templates')
         if os.path.exists(pptx_templates):
             filtered_datas.append((pptx_templates, 'pptx/templates'))
-            print("✓ python-pptx templates added")
+            print("python-pptx templates added")
     except ImportError:
-        print("⚠ python-pptx not installed")
+        print("python-pptx not installed")
 
     try:
         import comtypes
         gen_dir = os.path.join(os.path.dirname(comtypes.__file__), 'gen')
         if os.path.exists(gen_dir):
             filtered_datas.append((gen_dir, 'comtypes/gen'))
-            print("✓ comtypes gen cache added")
+            print("comtypes gen cache added")
     except ImportError:
-        print("⚠ comtypes not installed")
+        print("comtypes not installed")
 
     try:
         from PyInstaller.utils.hooks import collect_all
         pdf2docx_datas, pdf2docx_bins, pdf2docx_hidden = collect_all("pdf2docx")
         filtered_datas.extend(pdf2docx_datas)
-        print("✓ pdf2docx data files added")
+        print("pdf2docx data files added")
     except Exception as e:
-        print(f"⚠ pdf2docx collect_all failed: {e}")
+        print(f"pdf2docx collect_all failed: {e}")
 
     try:
         from PyInstaller.utils.hooks import collect_all
         np_datas, _, _ = collect_all("numpy")
         filtered_datas.extend(np_datas)
-        print("✓ numpy data files added")
+        print("numpy data files added")
     except Exception as e:
-        print(f"⚠ numpy collect_all failed: {e}")
+        print(f"numpy collect_all failed: {e}")
 
     try:
-        from PyInstaller.utils.hooks import collect_dynamic_libs, collect_data_files as _cdf
+        from PyInstaller.utils.hooks import collect_data_files as _cdf
         cv2_datas = _cdf("cv2")
         filtered_datas.extend(cv2_datas)
-        print("✓ cv2 data files added")
+        print("cv2 data files added")
     except Exception as e:
-        print(f"⚠ cv2 collect failed: {e}")
+        print(f"cv2 collect failed: {e}")
 
     try:
         from PyInstaller.utils.hooks import collect_all
         ft_datas, _, _ = collect_all("fontTools")
         filtered_datas.extend(ft_datas)
-        print("✓ fontTools data files added")
+        print("fontTools data files added")
     except Exception as e:
-        print(f"⚠ fontTools collect_all failed: {e}")
+        print(f"fontTools collect_all failed: {e}")
 
     return filtered_datas
 
