@@ -35,7 +35,7 @@ import os
 from pathlib import Path
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
                                QLabel, QFileDialog, QMessageBox, QComboBox,
-                               QLineEdit, QTabWidget, QTableWidget,
+                               QLineEdit, QTabWidget, QTableWidget, QDialog,
                                QTableWidgetItem, QDateEdit, QFrame,
                                QGraphicsDropShadowEffect, QGraphicsOpacityEffect, QSizePolicy)
 from PySide6.QtCore import (QDate, QTimer, QPropertyAnimation, QEasingCurve,
@@ -358,10 +358,11 @@ class AnimatedStatCard(QFrame):
         self._apply_card_style(t=0.0)
 
 
-class StatisticsDashboard(QWidget):
+class StatisticsDashboard(QDialog):
 
     def __init__(self, db_manager, language="fr", parent=None, translation_manager=None):
         super().__init__(parent)
+        self.setModal(False)
         _ensure_matplotlib()
         self.db_manager = db_manager
         self.language = language
@@ -374,7 +375,7 @@ class StatisticsDashboard(QWidget):
             self._translation_manager = TranslationManager()
             self._translation_manager.set_language(language)
         self.setWindowTitle(self.translate_text("📊 Tableau de Bord & Statistiques"))
-        self.setMinimumSize(1200, 800)
+        self.setMinimumSize(1100, 700)
         self.setWindowFlag(Qt.FramelessWindowHint, False)
         self._dark = self._get_dark_mode()
         # DB selector state
@@ -604,15 +605,8 @@ class StatisticsDashboard(QWidget):
         self.refresh_btn.setCursor(Qt.PointingHandCursor)
         self.refresh_btn.setFixedHeight(36)
 
-        self.close_btn = QPushButton("✕  " + self.translate_text("Fermer"))
-        self.close_btn.clicked.connect(self.close)
-        self.close_btn.setStyleSheet(self._btn_style("#dc3545", "#c82333", "#a71d2a"))
-        self.close_btn.setCursor(Qt.PointingHandCursor)
-        self.close_btn.setFixedHeight(36)
-
         top_bar.addWidget(self.refresh_btn)
         top_bar.addSpacing(8)
-        top_bar.addWidget(self.close_btn)
         layout.addLayout(top_bar)
 
         divider = QFrame()
@@ -895,13 +889,13 @@ class StatisticsDashboard(QWidget):
         export_layout.setSpacing(10)
 
         export_csv_btn = QPushButton("📊  " + self.translate_text("Exporter en CSV"))
-        export_csv_btn.setStyleSheet(self._btn_style("#34D399", "#22C57A", "#16A361"))
+        export_csv_btn.setStyleSheet(self._btn_style("#4361ee", "#3451d1", "#2a3fbf"))
         export_csv_btn.setCursor(Qt.PointingHandCursor)
         export_csv_btn.setFixedHeight(34)
         export_csv_btn.clicked.connect(lambda: self.export_history('csv'))
 
         export_json_btn = QPushButton("📋  " + self.translate_text("Exporter en JSON"))
-        export_json_btn.setStyleSheet(self._btn_style("#A3E635", "#93D625", "#83C615"))
+        export_json_btn.setStyleSheet(self._btn_style("#7c3aed", "#6d28d9", "#5b21b6"))
         export_json_btn.setCursor(Qt.PointingHandCursor)
         export_json_btn.setFixedHeight(34)
         export_json_btn.clicked.connect(lambda: self.export_history('json'))
