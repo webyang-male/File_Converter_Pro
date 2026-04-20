@@ -550,7 +550,7 @@ class AppUIMixin(AppLogicMixin):
             QMessageBox.warning(self, self.translate_text("Avertissement"), msg)
             return
         
-        _def_id, _ = self.template_manager.get_default_template("Optimisation de fichiers") if hasattr(self, 'template_manager') else (None, None)
+        _def_id, _ = self.template_manager.get_default_template("Optimisation de fichiers") if self.template_manager is not None else (None, None)
         if _def_id:
             (self._ensure_template_manager() or object()).apply_template(_def_id, self)
 
